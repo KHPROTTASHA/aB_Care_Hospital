@@ -6,29 +6,72 @@
 <title>Departments - aB Care Hospital</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-body{font-family:Poppins,sans-serif;margin:0;background:#f7f3ed;color:#3b332c;}
-.nav{background:#fff;padding:12px;border-bottom:1px solid #ddd;display:flex;justify-content:space-between;}
-.nav a{margin:5px;font-weight:600;color:#3b332c;text-decoration:none;}
+:root{
+  --bg:#f7f3ed; --text:#3b332c; --gold:#c79b4b; --shadow:0 6px 20px rgba(0,0,0,.08); --radius:14px;
+}
+body{font-family:Poppins,sans-serif;margin:0;background:var(--bg);color:var(--text);}
+a{text-decoration:none;color:inherit;}
 .container{width:min(1100px,92%);margin:auto;padding:20px 0;}
-h1{margin-bottom:20px;}
+
+/* Navbar */
+.nav{
+  background:#fff;
+  padding:12px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid #ddd;
+  position:sticky;
+  top:0;
+  z-index:100;
+  flex-wrap:wrap;
+}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;}
+.brand .logo{
+  width:42px;height:42px;border-radius:50%;
+  background:radial-gradient(circle at 30% 30%,#f0d089,#d0a04f);
+  display:grid;place-items:center;color:#6a4d16;font-weight:800;
+}
+.brand-name{font-weight:600;font-size:1rem;}
+.menu-btn{display:none;font-size:28px;background:none;border:none;cursor:pointer;}
+.nav-links{display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
+.nav-links a{font-weight:600;color:var(--text);transition:color .2s;}
+.nav-links a:hover{color:var(--gold);}
+@media (max-width:768px){
+  .menu-btn{display:block;}
+  .nav-links{display:none;flex-direction:column;width:100%;margin-top:10px;}
+  .nav-links.active{display:flex;}
+  .nav-links a{padding:10px 0;border-top:1px solid #eee;}
+}
+
+/* Departments buttons */
 .dept-btns{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px;}
-.dept-btns button{padding:8px 14px;background:#fff;border:1px solid #ccc;border-radius:8px;cursor:pointer;}
-.dept-btns button.active{background:#c79b4b;color:#fff;border:none;}
-.doctors{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;}
-.doctor{background:#fff;padding:16px;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.08);text-align:center;}
-.doctor img{width:100px;height:100px;border-radius:50%;object-fit:cover;margin-bottom:10px;}
-.doctor h3{margin:8px 0 4px;font-size:18px;}
-.doctor p{margin:0 0 10px;font-size:14px;color:#555;}
-.doctor button{padding:8px 12px;background:#c79b4b;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:14px;}
-footer{background:#2c2219;color:#e9e2d8;padding:15px;margin-top:20px;text-align:center;font-size:14px;}
+.dept-btns button{padding:8px 14px;background:#fff;border:1px solid #ccc;border-radius:8px;cursor:pointer;transition:all .2s;}
+.dept-btns button.active{background:var(--gold);color:#fff;border:none;}
+
+/* Doctor cards */
+.doctors{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px;}
+.doctor{background:#fff;padding:18px;border-radius:var(--radius);box-shadow:0 2px 8px rgba(0,0,0,.08);text-align:center;transition:transform .2s, box-shadow .2s;}
+.doctor:hover{transform:translateY(-5px);box-shadow:0 6px 18px rgba(0,0,0,.12);}
+.doctor img{width:110px;height:110px;border-radius:50%;object-fit:cover;margin-bottom:12px;}
+.doctor h3{margin:8px 0 4px;font-size:18px;font-weight:600;color:#2c2219;}
+.doctor p{margin:0 0 12px;font-size:14px;color:#555;}
+.doctor button{padding:9px 14px;background:var(--gold);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:14px;font-weight:500;transition:background .2s;}
+.doctor button:hover{background:#a67d32;}
+footer{background:#2c2219;color:#e9e2d8;padding:18px;margin-top:30px;text-align:center;font-size:14px;}
 </style>
 </head>
 <body>
 
+<!-- Navbar -->
 <div class="nav">
-  <div><a href="khp001.html">aB Care Hospital</a></div>
-  <div>
-    <a href="khp001.html">Home</a>
+  <div class="brand">
+    <div class="logo">aB</div>
+    <div class="brand-name">aB Care Hospital</div>
+  </div>
+  <button class="menu-btn" id="menuBtn">☰</button>
+  <div class="nav-links" id="navLinks">
+    <a href="index.html">Home</a>
     <a href="departments.html">Departments</a>
     <a href="find-doctor.html">Find a Doctor</a>
     <a href="appointment.html">Appointment</a>
@@ -83,9 +126,10 @@ function renderDoctors(dept){
   });
 }
 
-// ডিফল্ট Cardiology
+// Default
 renderDoctors('Cardiology');
 
+// Dept button click
 deptButtons.forEach(btn=>{
   btn.addEventListener('click',()=>{
     deptButtons.forEach(b=>b.classList.remove('active'));
@@ -94,21 +138,12 @@ deptButtons.forEach(btn=>{
   });
 });
 
-document.querySelectorAll(".book-btn").forEach(btn=>{
-  btn.addEventListener("click", ()=>{
-    // doctor info localStorage তে save করলাম
-    localStorage.setItem("selectedDoctor", JSON.stringify({
-      name: btn.dataset.name,
-      dept: btn.dataset.dept,
-      img: btn.dataset.img
-    }));
-
-    // appointment পেজে redirect করলাম
-    window.location.href = "appointment.html";
-  });
+// Hamburger toggle
+const menuBtn = document.getElementById('menuBtn');
+const navLinks = document.getElementById('navLinks');
+menuBtn.addEventListener('click', ()=>{
+  navLinks.classList.toggle('active');
 });
-
-
 </script>
 </body>
 </html>

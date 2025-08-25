@@ -29,6 +29,153 @@
     .search{flex:1;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #eee;border-radius:14px;padding:10px 12px}
     .search input{border:none;outline:none;flex:1;font-size:.95rem}
 
+/* Filter Panel */
+.filter-box {
+  display: none;
+  background: #fff;
+  padding: 16px;
+  margin: 12px auto;
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  animation: fadeIn 0.3s ease;
+}
+.filter-box label {
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.filter-box select {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: .95rem;
+  cursor: pointer;
+}
+
+@keyframes fadeIn {
+  from {opacity:0; transform:translateY(-6px)}
+  to {opacity:1; transform:translateY(0)}
+}
+/* Navbar core */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,.05);
+}
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+.brand .logo {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%,#f0d089, #d0a04f);
+  display: grid;
+  place-items: center;
+  color: #6a4d16;
+  font-weight: 800;
+}
+
+/* Search bar */
+.search {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 14px;
+  padding: 8px 12px;
+  margin: 12px 0;
+}
+.search input {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: .95rem;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  background: var(--gold);
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  font-weight: 600;
+  transition: all .25s ease;
+}
+.btn:hover {
+  transform: translateY(-2px);
+}
+.btn.secondary {
+  background: #fff;
+  color: var(--text);
+  border: 1px solid #e7e1d6;
+}
+
+/* Nav links wrapper */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+/* Hamburger */
+.menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+  .nav-links {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    right: 0;
+    background: #fff;
+    flex-direction: column;
+    gap: 14px;
+    padding: 16px;
+    border-bottom: 1px solid #eee;
+    box-shadow: 0 6px 12px rgba(0,0,0,.05);
+    display: none;
+  }
+  .nav-links.active {
+    display: flex;
+  }
+  .menu-btn {
+    display: block;
+    color: var(--text);
+  }
+}
+
+
+
+
+
     /* Quick tiles */
     .quick-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0}
     .tile{background:#fff;border-radius:14px;padding:14px;display:flex;gap:12px;align-items:center;box-shadow:var(--shadow)}
@@ -98,7 +245,18 @@
 
     /* Responsive */
     @media (max-width:1100px){.grid.depts{grid-template-columns:repeat(4,1fr)} .grid.docs{grid-template-columns:repeat(3,1fr)} .grid.pack{grid-template-columns:repeat(2,1fr)} .two{grid-template-columns:1fr}}
+   
     @media (max-width:720px){.quick-tiles{grid-template-columns:repeat(2,1fr)} .grid.depts{grid-template-columns:repeat(2,1fr)} .grid.docs{grid-template-columns:repeat(2,1fr)} .grid.pack{grid-template-columns:1fr} .testi{grid-template-columns:1fr} .footgrid{grid-template-columns:1fr} .hero img{height:300px} .nav-inner{flex-wrap:wrap} .search{order:3;width:100%}}
+
+    /* Doctors responsive */
+@media (max-width:720px){
+  .grid.docs {
+    display: grid !important;
+    grid-template-columns: 1fr !important; /* single column */
+    gap: 12px !important; /* smaller gap for mobile */
+  }
+}
+
   </style>
 </head>
 <body>
@@ -117,17 +275,25 @@
     </div>
   </div>
 
-  <!-- Navbar -->
-  <div class="navbar">
-    <div class="container nav-inner">
-      <div class="brand">
-        <div class="logo">aB</div>
-        <div>aB Care Hospital</div>
-      </div>
+<!-- Navbar -->
+<div class="navbar">
+  <div class="container nav-inner">
+    
+    <!-- Brand -->
+    <div class="brand">
+      <div class="logo">aB</div>
+      <div>aB Care Hospital</div>
+    </div>
+
+    <!-- Hamburger (Mobile) -->
+    <button id="menuToggle" class="menu-btn"><i class="ri-menu-line"></i></button>
+
+    <!-- Nav Links -->
+    <div id="navMenu" class="nav-links">
       <div class="search" role="search">
         <i class="ri-search-line"></i>
-        <input placeholder="Search doctor / department / service" />
-        <button class="btn secondary"><i class="ri-sliders-line"></i>Filters</button>
+        <input id="searchInput" placeholder="Search doctor / department / service" />
+        <button id="filterToggle" class="btn secondary"><i class="ri-sliders-line"></i>Filters</button>
       </div>
       <div class="nav-actions">
         <a href="find-doctor.html" class="btn secondary"><i class="ri-user-search-line"></i>Find a Doctor</a>
@@ -136,6 +302,22 @@
       </div>
     </div>
   </div>
+</div>
+
+<!-- Hidden Filter Panel -->
+<div id="filterPanel" class="filter-box container">
+  <label>
+    <span>Choose Department:</span>
+    <select id="deptFilter">
+      <option value="All">All</option>
+      <option value="Cardiology">Cardiology</option>
+      <option value="Medicine">Medicine</option>
+      <option value="Neurology">Neurology</option>
+      <option value="Orthopedics">Orthopedics</option>
+    </select>
+  </label>
+</div>
+
 
   <div class="container">
     <!-- Quick tiles -->
@@ -396,6 +578,54 @@
         doctorSection.scrollIntoView({ behavior: 'smooth' }); // scroll to correct section
       });
     });
+
+
+
+    const searchInput = document.getElementById("searchInput");
+const filterToggle = document.getElementById("filterToggle");
+const filterPanel = document.getElementById("filterPanel");
+const deptFilter = document.getElementById("deptFilter");
+const doctors = document.querySelectorAll(".doctor");
+
+// Toggle filter panel
+filterToggle.addEventListener("click", () => {
+  filterPanel.style.display = filterPanel.style.display === "block" ? "none" : "block";
+});
+
+// Search doctors by name/department
+searchInput.addEventListener("input", () => {
+  const query = searchInput.value.toLowerCase();
+  doctors.forEach(doc => {
+    const text = doc.innerText.toLowerCase();
+    doc.style.display = text.includes(query) ? "grid" : "none";
+  });
+});
+
+// Department filter
+deptFilter.addEventListener("change", () => {
+  const value = deptFilter.value;
+  doctors.forEach(doc => {
+    doc.style.display = (value === "All" || doc.dataset.dept === value) ? "grid" : "none";
+  });
+});
+
+  // Hamburger menu toggle
+  const menuToggle = document.getElementById("menuToggle");
+  const navMenu = document.getElementById("navMenu");
+
+  menuToggle.addEventListener("click", () => {
+    navMenu.classList.toggle("active");
+
+    // Optional: change icon from menu -> close
+    const icon = menuToggle.querySelector("i");
+    if (navMenu.classList.contains("active")) {
+      icon.className = "ri-close-line";
+    } else {
+      icon.className = "ri-menu-line";
+    }
+  });
+
+
   </script>
 </body>
 </html>
