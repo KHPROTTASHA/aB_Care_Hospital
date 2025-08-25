@@ -214,7 +214,7 @@
     .pack-card{display:flex;gap:14px;align-items:center}
     .badge{width:54px;height:54px;border-radius:14px;background:linear-gradient(145deg,#efe2cf,#dcc6a3);display:grid;place-items:center;font-size:26px;color:#7a5a2a}
     .price{margin-left:auto;font-weight:700}
-
+    .hidden { display: none; }
     /* Testimonials */
     .testi{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
     .quote{position:relative;padding-left:38px}
@@ -404,39 +404,117 @@
       </section>
 
     <!-- Packages -->
-    <section>
-      <div class="section-title">
-        <h3>Health Screening Packages</h3>
-        <div class="pill"><i class="ri-information-line"></i> See details</div>
+<section>
+  <div class="section-title">
+    <h3>Health Screening Packages</h3>
+  </div>
+  <div class="grid pack" id="packageList">
+    <!-- প্রথম ৩টি visible -->
+    <div class="card pack-card" data-package="Executive Basic (Men)" data-meta="General screening, blood tests" data-price="BDT 14,000" data-details="• Physical exam<br>• CBC, Blood Sugar<br>• ECG, Chest X-ray">
+      <div class="badge"><i class="ri-men-fill"></i></div>
+      <div>
+        <div class="name">Executive Basic (Men)</div>
+        <small class="meta">General screening, blood tests</small>
       </div>
-      <div class="grid pack">
-        <div class="card pack-card">
-          <div class="badge"><i class="ri-men-fill"></i></div>
-          <div>
-            <div class="name">Executive Basic (Men)</div>
-            <small class="meta">General screening, blood tests</small>
-          </div>
-          <div class="price">BDT 14,000</div>
-        </div>
-        <div class="card pack-card">
-          <div class="badge"><i class="ri-men-line"></i></div>
-          <div>
-            <div class="name">Whole Body Check (Men)</div>
-            <small class="meta">Complete body check</small>
-          </div>
-          <div class="price">BDT 28,000</div>
-        </div>
-        <div class="card pack-card">
-          <div class="badge"><i class="ri-women-fill"></i></div>
-          <div>
-            <div class="name">Executive Premier (Women)</div>
-            <small class="meta">With gyne screening</small>
-          </div>
-          <div class="price">BDT 25,000</div>
-        </div>
-      </div>
-    </section>
+      <div class="price">BDT 14,000</div>
+    </div>
 
+    <div class="card pack-card" data-package="Whole Body Check (Men)" data-meta="Complete body check" data-price="BDT 28,000" data-details="• Full physical exam<br>• Blood & urine tests<br>• ECG, USG, Echo">
+      <div class="badge"><i class="ri-men-line"></i></div>
+      <div>
+        <div class="name">Whole Body Check (Men)</div>
+        <small class="meta">Complete body check</small>
+      </div>
+      <div class="price">BDT 28,000</div>
+    </div>
+
+    <div class="card pack-card" data-package="Executive Premier (Women)" data-meta="With gyne screening" data-price="BDT 25,000" data-details="• Physical exam<br>• Blood, urine tests<br>• ECG, Mammogram<br>• Gyne consultation">
+      <div class="badge"><i class="ri-women-fill"></i></div>
+      <div>
+        <div class="name">Executive Premier (Women)</div>
+        <small class="meta">With gyne screening</small>
+      </div>
+      <div class="price">BDT 25,000</div>
+    </div>
+
+    <!-- বাকিরা hidden -->
+    <div class="card pack-card hidden" data-package="Premium Health Check" data-meta="Advanced tests" data-price="BDT 30,000" data-details="• Full body scan<br>• Blood panel">
+      <div class="badge"><i class="ri-hospital-fill"></i></div>
+      <div>
+        <div class="name">Premium Health Check</div>
+        <small class="meta">Advanced tests</small>
+      </div>
+      <div class="price">BDT 30,000</div>
+    </div>
+
+    <div class="card pack-card hidden" data-package="Cardio Check" data-meta="Heart tests" data-price="BDT 18,000" data-details="• ECG<br>• Echo">
+      <div class="badge"><i class="ri-heart-fill"></i></div>
+      <div>
+        <div class="name">Cardio Check</div>
+        <small class="meta">Heart tests</small>
+      </div>
+      <div class="price">BDT 18,000</div>
+    </div>
+
+    <div class="card pack-card hidden" data-package="Diabetic Check" data-meta="Diabetes tests" data-price="BDT 12,000" data-details="• Blood Sugar<br>• HbA1c">
+      <div class="badge"><i class="ri-test-tube-line"></i></div>
+      <div>
+        <div class="name">Diabetic Check</div>
+        <small class="meta">Diabetes tests</small>
+      </div>
+      <div class="price">BDT 12,000</div>
+    </div>
+
+    <div class="card pack-card hidden" data-package="Women Wellness" data-meta="Female health" data-price="BDT 22,000" data-details="• Gynecology consult<br>• Blood tests">
+      <div class="badge"><i class="ri-women-line"></i></div>
+      <div>
+        <div class="name">Women Wellness</div>
+        <small class="meta">Female health</small>
+      </div>
+      <div class="price">BDT 22,000</div>
+    </div>
+
+    <div class="card pack-card hidden" data-package="Senior Checkup" data-meta="Elderly care" data-price="BDT 20,000" data-details="• Blood test<br>• ECG<br>• Kidney check">
+      <div class="badge"><i class="ri-user-line"></i></div>
+      <div>
+        <div class="name">Senior Checkup</div>
+        <small class="meta">Elderly care</small>
+      </div>
+      <div class="price">BDT 20,000</div>
+    </div>
+
+    <div class="card pack-card hidden" data-package="Executive Plus" data-meta="Premium package" data-price="BDT 35,000" data-details="• Full checkup<br>• Cardio<br>• Imaging">
+      <div class="badge"><i class="ri-hospital-line"></i></div>
+      <div>
+        <div class="name">Executive Plus</div>
+        <small class="meta">Premium package</small>
+      </div>
+      <div class="price">BDT 35,000</div>
+    </div>
+
+    <div class="card pack-card hidden" data-package="Full Body Scan" data-meta="MRI, CT" data-price="BDT 40,000" data-details="• MRI<br>• CT Scan">
+      <div class="badge"><i class="ri-scan-line"></i></div>
+      <div>
+        <div class="name">Full Body Scan</div>
+        <small class="meta">MRI, CT</small>
+      </div>
+      <div class="price">BDT 40,000</div>
+    </div>
+  </div>
+  <button id="toggleBtn" class="btn mt-12">More Packages</button>
+</section>
+
+<!-- Modal -->
+<div id="packageModal" class="modal" style="display:none; position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);">
+  <div class="modal-content" style="background:#fff;padding:20px;margin:10% auto;width:90%;max-width:400px;border-radius:10px;position:relative;">
+    <span class="close" style="position:absolute;top:10px;right:15px;cursor:pointer;font-size:20px;">&times;</span>
+    <h2 id="modalTitle"></h2>
+    <p id="modalMeta"></p>
+    <p id="modalPrice" style="font-weight:bold;color:#c79b4b;"></p>
+    <div id="modalDetails" style="margin-top:10px;"></div>
+    <button id="bookNowBtn" class="btn mt-12" style="width:100%;margin-top:15px;background:#c79b4b;color:#fff;padding:10px;border:none;border-radius:8px;cursor:pointer;">Book Now</button>
+  </div>
+</div>
     <!-- Testimonials -->
     <section>
       <div class="section-title"><h3>Testimonials</h3></div>
@@ -625,7 +703,50 @@ deptFilter.addEventListener("change", () => {
     }
   });
 
+  const cards = document.querySelectorAll("#packageList .pack-card");
+const toggleBtn = document.getElementById("toggleBtn");
+const modal = document.getElementById("packageModal");
+const modalTitle = document.getElementById("modalTitle");
+const modalMeta = document.getElementById("modalMeta");
+const modalPrice = document.getElementById("modalPrice");
+const modalDetails = document.getElementById("modalDetails");
+const closeBtn = modal.querySelector(".close");
 
+// প্রথমে ৩টি দেখাবে, বাকিগুলো hidden
+cards.forEach((c,i)=>{ if(i>2) c.classList.add("hidden"); });
+
+// More/Show Less toggle
+toggleBtn.addEventListener("click", ()=>{
+  const hiddenCards = document.querySelectorAll("#packageList .pack-card.hidden");
+  if(hiddenCards.length>0){
+    hiddenCards.forEach(c=>c.classList.remove("hidden"));
+    toggleBtn.textContent = "Show Less";
+  } else {
+    cards.forEach((c,i)=>{ if(i>2) c.classList.add("hidden"); });
+    toggleBtn.textContent = "More Packages";
+  }
+});
+
+// Modal logic
+cards.forEach(card=>{
+  card.addEventListener("click", ()=>{
+    modalTitle.textContent = card.dataset.package;
+    modalMeta.textContent = card.dataset.meta;
+    modalPrice.textContent = card.dataset.price;
+    modalDetails.innerHTML = card.dataset.details;
+    modal.style.display = "block";
+  });
+});
+bookNowBtn.addEventListener("click", ()=> {
+  const packageName = encodeURIComponent(modalTitle.textContent);
+  const packagePrice = encodeURIComponent(modalPrice.textContent);
+  const packageDetails = encodeURIComponent(modalDetails.innerHTML);
+  window.location.href = `package-booking.html?name=${packageName}&price=${packagePrice}&details=${packageDetails}`;
+});
+
+// Close modal
+closeBtn.addEventListener("click", ()=>modal.style.display="none");
+window.addEventListener("click", e=>{ if(e.target==modal) modal.style.display="none"; });
   </script>
 </body>
 </html>

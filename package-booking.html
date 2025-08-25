@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book Health Screening Package</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f3ed; --card:#fff; --muted:#8a7761; --text:#3b332c; --gold:#c79b4b; --radius:18px; --shadow:0 8px 24px rgba(0,0,0,.08);
+}
+*{box-sizing:border-box;margin:0;padding:0;font-family:"Poppins",sans-serif;}
+body{background:var(--bg);color:var(--text);}
+a{text-decoration:none;color:inherit;}
+
+/* Navbar */
+.navbar{position:sticky;top:0;z-index:50;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.05);}
+.nav-inner{display:flex;justify-content:space-between;align-items:center;padding:12px 5%;max-width:1180px;margin:auto;}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1.2rem;}
+.brand .logo{width:42px;height:42px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#f0d089,#d0a04f);display:grid;place-items:center;color:#6a4d16;font-weight:800;}
+.nav-links{display:flex;align-items:center;gap:12px;}
+.menu-btn{display:none;background:none;border:none;font-size:1.5rem;cursor:pointer;}
+.btn{display:inline-flex;align-items:center;gap:8px;border:none;background:var(--gold);color:#fff;padding:10px 16px;border-radius:12px;cursor:pointer;font-weight:600;transition:all .25s ease;}
+.btn.secondary{background:#fff;color:var(--text);border:1px solid #e7e1d6;}
+@media(max-width:960px){
+  .nav-links{position:absolute;top:70px;left:0;right:0;background:#fff;flex-direction:column;gap:14px;padding:16px;box-shadow:0 6px 12px rgba(0,0,0,.05);display:none;}
+  .nav-links.active{display:flex;}
+  .menu-btn{display:block;}
+}
+
+/* Hero */
+.hero{width:100%;height:250px;background:url('https://images.unsplash.com/photo-1504439468489-c8920d796a29?q=80&w=1400&auto=format&fit=crop') center/cover no-repeat;display:flex;align-items:center;justify-content:center;border-radius:14px;margin:20px 0;}
+.hero h1{color:#fff;background:rgba(0,0,0,0.4);padding:10px 20px;border-radius:12px;}
+
+/* Container */
+.container{max-width:900px;margin:20px auto;padding:0 16px;}
+
+/* Package Info */
+.package-card{background:#fff;padding:20px;border-radius:18px;box-shadow:var(--shadow);margin-bottom:24px;}
+.package-card h2{font-size:1.6rem;color:var(--gold);margin-bottom:8px;}
+.package-card p{margin-bottom:6px;}
+.package-card .price{font-weight:700;color:#c79b4b;margin-bottom:12px;}
+
+/* Form */
+form{background:#fff;padding:20px;border-radius:18px;box-shadow:var(--shadow);}
+form label{display:block;margin-bottom:6px;font-weight:500;}
+form input, form select, form textarea{width:100%;padding:10px;border-radius:10px;border:1px solid #ddd;margin-bottom:14px;font-size:1rem;}
+form button{background:var(--gold);color:#fff;padding:12px 18px;border-radius:12px;border:none;cursor:pointer;font-weight:600;transition:all .25s ease;}
+form button:hover{transform:translateY(-2px);}
+
+/* Responsive */
+@media(max-width:720px){
+  .hero{height:180px;}
+  .nav-inner{flex-wrap:wrap;}
+}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+  <div class="nav-inner">
+    <div class="brand">
+      <div class="logo">aB</div>
+      <div>aB Care Hospital</div>
+    </div>
+    <button id="menuToggle" class="menu-btn"><i class="ri-menu-line"></i></button>
+    <div id="navMenu" class="nav-links">
+      <a href="index.html" class="btn secondary">Home</a>
+      <a href="find-doctor.html" class="btn secondary">Find a Doctor</a>
+      <a href="appointment.html" class="btn secondary">Appointments</a>
+      <a href="departments.html" class="btn secondary">Departments</a>
+    </div>
+  </div>
+</div>
+
+<!-- Hero -->
+<div class="hero">
+  <h1>Book Your Health Screening Package</h1>
+</div>
+
+<!-- Container -->
+<div class="container">
+  <div class="package-card">
+    <h2 id="pkgName">Package Name</h2>
+    <p id="pkgMeta">Package description / tests included.</p>
+    <p class="price" id="pkgPrice">BDT 0</p>
+    <p id="pkgDetails">Detailed tests and consultation info.</p>
+  </div>
+
+  <!-- Appointment Form -->
+  <form action="submit-appointment.php" method="POST">
+    <label>Name</label>
+    <input type="text" name="name" required>
+
+    <label>Email</label>
+    <input type="email" name="email" required>
+
+    <label>Phone</label>
+    <input type="tel" name="phone" required>
+
+    <label>Select Package</label>
+    <select name="package" id="formPackage" required>
+      <option value="">Select Package</option>
+    </select>
+
+    <label>Preferred Date</label>
+    <input type="date" name="date" required>
+
+    <label>Additional Notes</label>
+    <textarea name="notes" rows="3" placeholder="Any specific requirements..."></textarea>
+
+    <button type="submit">Book Appointment</button>
+  </form>
+</div>
+
+<script>
+// Hamburger menu
+const menuToggle = document.getElementById("menuToggle");
+const navMenu = document.getElementById("navMenu");
+menuToggle.addEventListener("click", () => {
+  navMenu.classList.toggle("active");
+  const icon = menuToggle.querySelector("i");
+  icon.className = navMenu.classList.contains("active") ? "ri-close-line" : "ri-menu-line";
+});
+
+// Load package data from URL params
+function getPackageFromURL(){
+  const params = new URLSearchParams(window.location.search);
+  const name = params.get('name') || "Executive Basic (Men)";
+  const meta = params.get('meta') || "General screening, blood tests";
+  const price = params.get('price') || "BDT 14,000";
+  const details = params.get('details') || "• Physical exam<br>• CBC, Blood Sugar<br>• ECG, Chest X-ray";
+
+  document.getElementById("pkgName").innerText = name;
+  document.getElementById("pkgMeta").innerText = meta;
+  document.getElementById("pkgPrice").innerText = price;
+  document.getElementById("pkgDetails").innerHTML = details;
+
+  // Fill select box
+  const select = document.getElementById("formPackage");
+  select.innerHTML = `<option value="${name}" selected>${name}</option>`;
+}
+
+getPackageFromURL();
+</script>
+
+</body>
+</html>
