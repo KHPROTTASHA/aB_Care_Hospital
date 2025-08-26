@@ -8,7 +8,11 @@
 <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet">
 <style>
 :root{
-  --bg:#f7f3ed; --card:#fff; --muted:#8a7761; --text:#3b332c; --gold:#c79b4b; --radius:18px; --shadow:0 8px 24px rgba(0,0,0,.08);
+  --bg:#f7f3ed; --card:#fff; --muted:#8a7761; --text:#3b332c; --gold:#c79b4b;
+  --radius:18px; --shadow:0 8px 24px rgba(0,0,0,.08);
+
+  /* Google colors */
+  --g-red:#DB4437; --g-yellow:#F4B400; --g-green:#0F9D58; --g-blue:#4285F4;
 }
 *{box-sizing:border-box;margin:0;padding:0;font-family:"Poppins",sans-serif;}
 body{background:var(--bg);color:var(--text);}
@@ -18,7 +22,13 @@ a{text-decoration:none;color:inherit;}
 .navbar{position:sticky;top:0;z-index:50;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.05);}
 .nav-inner{display:flex;justify-content:space-between;align-items:center;padding:12px 5%;max-width:1180px;margin:auto;}
 .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1.2rem;}
-.brand .logo{width:42px;height:42px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#f0d089,#d0a04f);display:grid;place-items:center;color:#6a4d16;font-weight:800;}
+
+/* W logo */
+.w-logo{
+  width:50px; height:50px;
+}
+.w-logo path{stroke-linecap:round; stroke-linejoin:round;}
+/* Navbar links */
 .nav-links{display:flex;align-items:center;gap:12px;}
 .menu-btn{display:none;background:none;border:none;font-size:1.5rem;cursor:pointer;}
 .btn{display:inline-flex;align-items:center;gap:8px;border:none;background:var(--gold);color:#fff;padding:10px 16px;border-radius:12px;cursor:pointer;font-weight:600;transition:all .25s ease;}
@@ -31,14 +41,14 @@ a{text-decoration:none;color:inherit;}
 
 /* Hero */
 .hero{width:100%;height:250px;background:url('https://images.unsplash.com/photo-1504439468489-c8920d796a29?q=80&w=1400&auto=format&fit=crop') center/cover no-repeat;display:flex;align-items:center;justify-content:center;border-radius:14px;margin:20px 0;}
-.hero h1{color:#fff;background:rgba(0,0,0,0.4);padding:10px 20px;border-radius:12px;}
+.hero h1{color:#fff;background:rgba(0,0,0,0.4);padding:10px 20px;border-radius:12px;text-align:center;}
 
 /* Container */
 .container{max-width:900px;margin:20px auto;padding:0 16px;}
 
 /* Package Info */
 .package-card{background:#fff;padding:20px;border-radius:18px;box-shadow:var(--shadow);margin-bottom:24px;}
-.package-card h2{font-size:1.6rem;color:var(--gold);margin-bottom:8px;}
+.package-card h2{font-size:1.8rem;color:var(--gold);margin-bottom:8px;}
 .package-card p{margin-bottom:6px;}
 .package-card .price{font-weight:700;color:#c79b4b;margin-bottom:12px;}
 
@@ -49,7 +59,6 @@ form input, form select, form textarea{width:100%;padding:10px;border-radius:10p
 form button{background:var(--gold);color:#fff;padding:12px 18px;border-radius:12px;border:none;cursor:pointer;font-weight:600;transition:all .25s ease;}
 form button:hover{transform:translateY(-2px);}
 
-/* Responsive */
 @media(max-width:720px){
   .hero{height:180px;}
   .nav-inner{flex-wrap:wrap;}
@@ -62,7 +71,26 @@ form button:hover{transform:translateY(-2px);}
 <div class="navbar">
   <div class="nav-inner">
     <div class="brand">
-      <div class="logo">aB</div>
+      <!-- Google-style W logo -->
+      <svg class="w-logo" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <!-- white stroke base -->
+        <path d="M15 20 L37.5 92 L60 20 L82.5 92 L105 20" fill="none" stroke="#fff" stroke-width="20"/>
+        <!-- Red -->
+        <path d="M15 20 L37.5 92 L60 20 L82.5 92 L105 20"
+          fill="none" stroke="var(--g-red)" stroke-width="16"
+          pathLength="100" stroke-dasharray="33 67" stroke-dashoffset="67"/>
+        <!-- Yellow -->
+        <path d="M15 20 L37.5 92 L60 20 L82.5 92 L105 20"
+          fill="none" stroke="var(--g-yellow)" stroke-width="16"
+          pathLength="100" stroke-dasharray="34 66" stroke-dashoffset="33"/>
+        <!-- Blue -->
+        <path d="M15 20 L37.5 92 L60 20 L82.5 92 L105 20"
+          fill="none" stroke="var(--g-blue)" stroke-width="16"
+          pathLength="100" stroke-dasharray="33 67" stroke-dashoffset="0"/>
+        <!-- Green bottom accents -->
+        <polygon points="34,92 41,92 37.5,80" fill="var(--g-green)"/>
+        <polygon points="79,92 86,92 82.5,80" fill="var(--g-green)"/>
+      </svg>
       <div>aB Care Hospital</div>
     </div>
     <button id="menuToggle" class="menu-btn"><i class="ri-menu-line"></i></button>
@@ -138,7 +166,6 @@ function getPackageFromURL(){
   document.getElementById("pkgPrice").innerText = price;
   document.getElementById("pkgDetails").innerHTML = details;
 
-  // Fill select box
   const select = document.getElementById("formPackage");
   select.innerHTML = `<option value="${name}" selected>${name}</option>`;
 }

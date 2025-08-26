@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Google-style W Logo (HTML + CSS + SVG)</title>
+  <style>
+    :root{
+      /* Google brand colors */
+      --g-red:#DB4437;
+      --g-yellow:#F4B400;
+      --g-green:#0F9D58;
+      --g-blue:#4285F4;
+      --bg:#0b0b0d;
+    }
+
+    *{box-sizing:border-box}
+    body{margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif; background:#f5f7fb; color:#111}
+    .wrap{max-width:900px; margin:40px auto; padding:24px}
+    h1{font-size:clamp(20px,2.6vw,28px); margin:0 0 8px}
+    p{margin:0 0 20px; color:#444}
+
+    .grid{display:grid; grid-template-columns:1fr 1fr; gap:28px}
+
+    /* Reusable sizes */
+    .logo{width:min(420px, 90%); aspect-ratio:1 / 1;}
+
+    /* 1) Flat version on white */
+    .flat{display:grid; place-items:center; background:#fff; border-radius:24px; padding:24px; box-shadow:0 6px 18px rgba(0,0,0,.08)}
+
+    /* 2) Glossy app icon version */
+    .icon{display:grid; place-items:center}
+    .icon .tile{
+      width:min(420px, 90%);
+      aspect-ratio:1/1;
+      border-radius:28%;
+      background: radial-gradient(120% 120% at 30% 20%, rgba(255,255,255,.22) 0%, rgba(255,255,255,.04) 42%, rgba(0,0,0,.35) 100%),
+                  linear-gradient(180deg, #1a1a1d 0%, #0d0d10 100%);
+      box-shadow:
+        0 18px 40px rgba(0,0,0,.35),
+        inset 0 2px 2px rgba(255,255,255,.18),
+        inset 0 -2px 12px rgba(0,0,0,.5);
+      display:grid; place-items:center; padding:32px;
+    }
+    .credit{font-size:12px; opacity:.6; margin-top:6px}
+
+    /* Helpful control */
+    .size{display:flex; align-items:center; gap:10px; margin:16px 0 8px}
+    input[type=range]{width:240px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Google‑style <strong>W</strong> Logo</h1>
+    <p>Pure HTML/CSS with an inline SVG. Two versions: flat and glossy app‑icon.</p>
+
+    <div class="size">
+      <label for="scale">Size:</label>
+      <input id="scale" type="range" min="200" max="540" value="360" step="10" oninput="document.querySelectorAll('.logo').forEach(el=>el.style.width=this.value+'px')">
+      <span id="px">360px</span>
+    </div>
+
+    <div class="grid">
+      <!-- Flat version -->
+      <div class="flat">
+        <svg class="logo" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-label="Flat W logo">
+          <!-- Base white stroke for separation -->
+          <path d="M15 20 L37.5 92 L60 20 L82.5 92 L105 20" fill="none" stroke="#fff" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" opacity="1"/>
+
+          <!-- Red segment (left) -->
+          <path d="M15 20 L37.5 92 L60 20 L82.5 92 L105 20" fill="none" stroke="var(--g-red)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" pathLength="100" stroke-dasharray="33 67" stroke-dashoffset="67"/>
+          <!-- Yellow segment (middle peaks) -->
+          <path d="M15 20 L37.5 92 L60 20 L82.5 92 L105 20" fill="none" stroke="var(--g-yellow)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" pathLength="100" stroke-dasharray="34 66" stroke-dashoffset="33"/>
+          <!-- Blue segment (right) -->
+          <path d="M15 20 L37.5 92 L60 20 L82.5 92 L105 20" fill="none" stroke="var(--g-blue)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" pathLength="100" stroke-dasharray="33 67" stroke-dashoffset="0"/>
+
+          <!-- Small green accents at the two lower vertices -->
+          <g>
+            <polygon points="34,92 41,92 37.5,80" fill="var(--g-green)"/>
+            <polygon points="79,92 86,92 82.5,80" fill="var(--g-green)"/>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Glossy black rounded-square icon version -->
+      <div class="icon">
+        <div class="tile">
+          <svg class="logo" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-label="Glossy app icon W logo">
+            <!-- subtle shadow behind the stroke -->
+            <filter id="soft-shadow" x="-50%" y="-50%" width="200%" height="200%">
+              <feDropShadow dx="0" dy="4" stdDeviation="3" flood-opacity="0.55"/>
+            </filter>
+
+            <!-- White separator stroke for clean segment edges -->
+            <path d="M15 20 L37.5 92 L60 20 L82.5 92 L105 20" fill="none" stroke="#111" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" filter="url(#soft-shadow)"/>
+
+            <!-- Red / Yellow / Blue segments -->
+            <path d="M15 20 L37.5 92 L60 20 L82.5 92 L105 20" fill="none" stroke="var(--g-red)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" pathLength="100" stroke-dasharray="33 67" stroke-dashoffset="67"/>
+            <path d="M15 20 L37.5 92 L60 20 L82.5 92 L105 20" fill="none" stroke="var(--g-yellow)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" pathLength="100" stroke-dasharray="34 66" stroke-dashoffset="33"/>
+            <path d="M15 20 L37.5 92 L60 20 L82.5 92 L105 20" fill="none" stroke="var(--g-blue)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" pathLength="100" stroke-dasharray="33 67" stroke-dashoffset="0"/>
+
+            <!-- Green accents -->
+            <g>
+              <polygon points="34,92 41,92 37.5,80" fill="var(--g-green)"/>
+              <polygon points="79,92 86,92 82.5,80" fill="var(--g-green)"/>
+            </g>
+          </svg>
+        </div>
+        <div class="credit">Tip: tweak dash lengths or points to fine‑tune the color split.</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const scale = document.getElementById('scale');
+    const px = document.getElementById('px');
+    const sync = ()=> px.textContent = scale.value + 'px';
+    scale.addEventListener('input', sync); sync();
+  </script>
+</body>
+</html>
